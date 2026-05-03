@@ -49,6 +49,9 @@
 
         .btn-champagne { background: #D4AF37; color: #030303; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .btn-champagne:hover { background: #F3E5AB; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+        
+        .btn-outline { background: rgba(0,0,0,0.3); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); transition: all 0.4s ease; }
+        .btn-outline:hover { background: #FFFFFF; color: #030303; transform: translateY(-2px); }
 
         .vehicle-card {
             background: rgba(10, 10, 10, 0.6);
@@ -120,24 +123,23 @@
     <!-- FULL SCREEN NAVIGATION MENU -->
     <div id="full-menu" class="fixed inset-0 bg-black/60 backdrop-blur-2xl z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 border-l border-white/5">
         <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white text-2xl hover:text-luxury-champagne transition-colors"><i class="fas fa-times"></i></button>
-        <div class="flex flex-col items-center gap-6 text-center w-full px-6">
-            <div class="font-editorial text-lg tracking-[0.15em] text-luxury-champagne uppercase mb-4">Menu</div>
-            <button onclick="switchPage('home')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Home</button>
-            <button onclick="switchPage('ceramic')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Ceramic Coating</button>
-            <button onclick="switchPage('detailing')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Vehicle Detailing</button>
-            <button onclick="switchPage('vehicles')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Book Service</button>
-            <button onclick="switchPage('contact')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Contact Us</button>
-            <div class="w-12 h-[1px] bg-luxury-champagne/30 mt-6"></div>
-            
-            <div class="flex gap-6 mt-6">
-                <a href="https://www.instagram.com/urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 hover:border-luxury-champagne flex items-center justify-center transition-colors text-luxury-silver hover:text-luxury-champagne">
-                    <i class="fab fa-instagram text-lg"></i>
+        <div class="flex flex-col items-center gap-5 text-center w-full px-6">
+            <div class="font-editorial text-sm tracking-[0.2em] text-luxury-champagne uppercase mb-4">Menu</div>
+            <button onclick="switchPage('home')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Home</button>
+            <button onclick="switchPage('ceramic')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Ceramic Coating</button>
+            <button onclick="switchPage('detailing')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Vehicle Detailing</button>
+            <button onclick="switchPage('vehicles')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Book Service</button>
+            <button onclick="switchPage('contact')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Contact Us</button>
+            <div class="w-10 h-[1px] bg-luxury-champagne/30 mt-4"></div>
+            <div class="flex gap-6 mt-4">
+                <a href="https://www.instagram.com/urbanx_detail" target="_blank" class="w-10 h-10 rounded-full border border-white/20 hover:border-luxury-champagne flex items-center justify-center transition-colors text-luxury-silver hover:text-luxury-champagne">
+                    <i class="fab fa-instagram text-sm"></i>
                 </a>
-                <a href="https://www.tiktok.com/@urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 hover:border-luxury-champagne flex items-center justify-center transition-colors text-luxury-silver hover:text-luxury-champagne">
-                    <i class="fab fa-tiktok text-lg"></i>
+                <a href="https://www.tiktok.com/@urbanx_detail" target="_blank" class="w-10 h-10 rounded-full border border-white/20 hover:border-luxury-champagne flex items-center justify-center transition-colors text-luxury-silver hover:text-luxury-champagne">
+                    <i class="fab fa-tiktok text-sm"></i>
                 </a>
             </div>
-            <span class="text-[9px] text-luxury-silver font-light tracking-[0.3em] uppercase mt-2">Follow The Studio</span>
+            <span class="text-[8px] text-luxury-silver font-light tracking-[0.3em] uppercase mt-2">Follow The Studio</span>
         </div>
     </div>
 
@@ -149,7 +151,7 @@
         <div class="absolute inset-0 video-gradient z-10"></div>
         <div class="absolute inset-0 bg-black/10 z-10"></div>
 
-        <div class="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center mt-12 reveal">
+        <div class="relative z-20 w-full max-w-5xl mx-auto flex flex-col items-center text-center mt-12 reveal">
             <div class="inline-flex items-center gap-4 mb-8">
                 <span class="w-12 h-[1px] bg-luxury-champagne/50"></span>
                 <span class="text-[10px] font-medium uppercase tracking-[0.4em] text-luxury-silver">Nairobi, NBO</span>
@@ -158,12 +160,21 @@
             <h1 class="text-5xl md:text-7xl lg:text-[6.5rem] font-editorial leading-[1] text-white mb-6 drop-shadow-2xl">
                 The Art of <br><span class="italic font-light text-luxury-silver">Auto Detailing.</span>
             </h1>
-            <p class="text-xs md:text-sm text-luxury-silver font-light tracking-[0.3em] uppercase max-w-md mx-auto leading-relaxed mb-12">
+            <p class="text-xs md:text-sm text-luxury-silver font-light tracking-[0.3em] uppercase max-w-md mx-auto leading-relaxed mb-10">
                 Elevated Car Care & Ceramic Coatings
             </p>
-            <button onclick="switchPage('vehicles')" class="btn-champagne px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2">
-                Book Service <i class="fas fa-arrow-right"></i>
-            </button>
+            
+            <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 w-full px-4">
+                <button onclick="switchPage('vehicles')" class="btn-champagne w-full sm:w-auto px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2">
+                    Book Service <i class="fas fa-arrow-right"></i>
+                </button>
+                <button onclick="switchPage('ceramic')" class="btn-outline w-full sm:w-auto px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center">
+                    Ceramic Coating
+                </button>
+                <button onclick="switchPage('detailing')" class="btn-outline w-full sm:w-auto px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center">
+                    Vehicle Detailing
+                </button>
+            </div>
         </div>
     </main>
 
@@ -180,10 +191,11 @@
                 </p>
             </div>
 
+            <!-- INTERACTIVE ACCORDIONS -->
             <div class="w-full space-y-2 reveal delay-100">
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-ceramic-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Ceramic Coating?</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Ceramic Coating?</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-ceramic-1" class="accordion-content">
@@ -195,7 +207,7 @@
 
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-ceramic-2')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">Hydrophobic Benefits</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Hydrophobic Benefits</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-ceramic-2" class="accordion-content">
@@ -230,7 +242,7 @@
             <div class="w-full space-y-2 reveal delay-100">
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-detail-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Car Detailing?</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Car Detailing?</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-detail-1" class="accordion-content">
@@ -242,7 +254,7 @@
 
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-detail-2')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">Why Your Vehicle Needs It</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Why Your Vehicle Needs It</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-detail-2" class="accordion-content">
@@ -319,50 +331,33 @@
     <main id="page-contact" class="page-view relative min-h-[100dvh] w-full flex-col items-center justify-center pt-24 px-4 pb-12 bg-[#030303]">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-luxury-champagne/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
-        <div class="relative z-10 w-full max-w-[800px] mx-auto mt-8 reveal">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-6xl font-editorial text-white mb-4">Studio <span class="italic text-luxury-champagne">Directory</span></h2>
-                <p class="text-[10px] text-luxury-muted uppercase tracking-[0.3em]">Get in touch with our concierge</p>
+        <div class="relative z-10 w-full max-w-[480px] mx-auto bg-white/5 border border-white/10 backdrop-blur-xl p-8 sm:p-12 rounded-sm shadow-2xl mt-8 reveal">
+            <h2 class="text-3xl md:text-4xl font-editorial text-center text-white mb-2 italic">Studio Directory</h2>
+            <p class="text-[10px] text-center text-luxury-muted uppercase tracking-[0.3em] mb-10">Get in touch</p>
+
+            <div class="overflow-hidden">
+                <table class="w-full text-sm font-light tracking-wide">
+                    <tbody>
+                        <tr class="border-b border-white/10">
+                            <td class="py-6 w-12 text-center text-luxury-champagne"><i class="fas fa-location-dot text-lg"></i></td>
+                            <td class="py-6 text-right text-white">Cool Waters, Nairobi</td>
+                        </tr>
+                        <tr class="border-b border-white/10">
+                            <td class="py-6 w-12 text-center text-luxury-champagne"><i class="fas fa-phone text-lg"></i></td>
+                            <td class="py-6 text-right text-white"><a href="tel:+254721227896" class="hover:text-luxury-champagne transition-colors">+254 721 22 78 96</a></td>
+                        </tr>
+                        <tr>
+                            <td class="py-6 w-12 text-center text-luxury-champagne"><i class="fas fa-clock text-lg"></i></td>
+                            <td class="py-6 text-right text-white text-xs">Mon - Sat, 8:00 AM - 6:00 PM</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- Typographic Layout (No generic tables or icons) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-8">
-                
-                <div class="space-y-10 border-l border-luxury-champagne/30 pl-6">
-                    <div>
-                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-3">Studio Location</p>
-                        <p class="font-editorial text-2xl md:text-3xl text-white">Cool Waters, Nairobi</p>
-                    </div>
-                    <div>
-                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-3">Direct Concierge</p>
-                        <a href="tel:+254721227896" class="font-editorial text-2xl md:text-3xl text-white hover:text-luxury-champagne transition-colors">+254 721 22 78 96</a>
-                    </div>
-                    <div>
-                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-3">Operating Hours</p>
-                        <p class="font-editorial text-2xl md:text-3xl text-white">Mon - Sat, 8:00am - 6:00pm</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col justify-center items-start md:items-end space-y-10 md:border-r border-luxury-champagne/30 md:pr-6 border-l md:border-l-0 border-luxury-champagne/30 pl-6 md:pl-0">
-                    <div>
-                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-4 md:text-right">Digital Portfolio</p>
-                        <div class="flex gap-4">
-                            <a href="https://www.instagram.com/urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-luxury-champagne hover:text-luxury-champagne transition-colors text-luxury-silver">
-                                <i class="fab fa-instagram text-lg"></i>
-                            </a>
-                            <a href="https://www.tiktok.com/@urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-luxury-champagne hover:text-luxury-champagne transition-colors text-luxury-silver">
-                                <i class="fab fa-tiktok text-lg"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="pt-4">
-                        <button onclick="openBookingUI()" class="btn-champagne py-4 px-10 text-[10px] uppercase tracking-[0.2em] font-semibold w-fit rounded-sm">
-                            Initiate Booking
-                        </button>
-                    </div>
-                </div>
-
+            <div class="mt-8 flex flex-col gap-3">
+                <a href="https://wa.me/254721227896" target="_blank" class="btn-champagne w-full py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2">
+                    Send WhatsApp <i class="fab fa-whatsapp text-sm"></i>
+                </a>
             </div>
         </div>
     </main>
@@ -433,7 +428,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const dateInput = document.getElementById('booking-date');
-            if(dateInput) { dateInput.min = "2026-05-04"; } // Start from tomorrow to bypass current Sunday system time
+            if(dateInput) { dateInput.min = "2026-05-04"; } 
             
             initScrollReveal();
             triggerReveals();
