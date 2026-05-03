@@ -85,10 +85,14 @@
 
         .editorial-input { background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; color: white; padding-bottom: 8px; appearance: none; border-radius: 0; }
         .editorial-input:focus { border-color: #D4AF37; outline: none; }
-        .editorial-input:invalid, .editorial-input option[value=""] { color: #777777; }
-        select option { background-color: #0A0A0A; color: #FFFFFF; font-family: 'Montserrat', sans-serif; font-size: 14px; font-style: normal; }
         input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; opacity: 0.3; transition: opacity 0.3s; }
         input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+
+        /* Custom Dropdown Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; display: block; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.8); }
 
         /* SCROLL REVEAL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -190,7 +194,6 @@
                 </p>
             </div>
 
-            <!-- INTERACTIVE ACCORDIONS -->
             <div class="w-full space-y-2 reveal delay-100">
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-ceramic-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
@@ -262,7 +265,6 @@
                 </p>
             </div>
 
-            <!-- INTERACTIVE ACCORDIONS -->
             <div class="w-full space-y-2 reveal delay-100">
                 
                 <div class="border-b border-white/10 pb-2">
@@ -428,7 +430,7 @@
         </div>
     </main>
 
-    <!-- EDITORIAL BOOKING UI -->
+    <!-- EDITORIAL BOOKING UI (CUSTOM UI Replaces Native Selects) -->
     <div id="bookingOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] bottom-sheet-overlay flex items-end justify-center sm:items-center p-0 sm:p-4">
         <div class="absolute inset-0" onclick="closeBookingUI()"></div>
         
@@ -446,31 +448,45 @@
 
             <div class="space-y-8">
                 
-                <div class="relative group">
+                <!-- Custom Vehicle Dropdown -->
+                <div class="relative group custom-select-container z-30">
                     <label class="block text-[8px] uppercase tracking-[0.3em] font-medium text-luxury-muted mb-2 transition-colors group-hover:text-luxury-champagne">Vehicle Classification</label>
-                    <select id="vehicle" required onchange="calculateQuote()" class="w-full editorial-input text-lg font-editorial italic cursor-pointer">
-                        <option value="" disabled selected hidden>Select Classification...</option>
-                        <option value="Bike">Motorcycle / Bike</option>
-                        <option value="Sedan">Sedan / Coupe</option>
-                        <option value="Mid-Size SUV">Mid-Size SUV</option>
-                        <option value="Large SUV">Large SUV / Truck</option>
-                        <option value="Sport">Sport / Exotic</option>
-                    </select>
+                    <div class="relative">
+                        <div onclick="toggleCustomDropdown('vehicle-options')" class="w-full editorial-input text-lg font-editorial italic cursor-pointer flex justify-between items-center pb-2">
+                            <span id="vehicle-selected-text" class="text-luxury-muted">Select Classification...</span>
+                            <i class="fas fa-chevron-down text-[10px] text-luxury-muted transition-transform duration-300 dropdown-arrow" id="vehicle-arrow"></i>
+                        </div>
+                        <div id="vehicle-options" class="custom-options absolute top-full left-0 w-full mt-2 bg-[#050505] border border-white/10 shadow-2xl rounded-sm overflow-hidden flex flex-col transition-all duration-300 opacity-0 pointer-events-none translate-y-[-10px] z-50">
+                            <button type="button" onclick="setCustomOption('vehicle', 'Bike', 'Motorcycle / Bike')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Motorcycle / Bike</button>
+                            <button type="button" onclick="setCustomOption('vehicle', 'Sedan', 'Sedan / Coupe')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Sedan / Coupe</button>
+                            <button type="button" onclick="setCustomOption('vehicle', 'Mid-Size SUV', 'Mid-Size SUV')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Mid-Size SUV</button>
+                            <button type="button" onclick="setCustomOption('vehicle', 'Large SUV', 'Large SUV / Truck')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Large SUV / Truck</button>
+                            <button type="button" onclick="setCustomOption('vehicle', 'Sport', 'Sport / Exotic')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors">Sport / Exotic</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="vehicle" value="">
                 </div>
 
-                <div class="relative group">
+                <!-- Custom Service Dropdown -->
+                <div class="relative group custom-select-container z-20">
                     <label class="block text-[8px] uppercase tracking-[0.3em] font-medium text-luxury-muted mb-2 transition-colors group-hover:text-luxury-champagne">Service Tier</label>
-                    <select id="service" required onchange="calculateQuote()" class="w-full editorial-input text-lg font-editorial italic cursor-pointer">
-                        <option value="" disabled selected hidden>Select Treatment...</option>
-                        <option value="Exterior Wash">Exterior Wash</option>
-                        <option value="Standard Detail">Standard Detail</option>
-                        <option value="Monthly Maintenance">Monthly Maintenance</option>
-                        <option value="Full Detail">Full Detail</option>
-                        <option value="1 Step Paint Correction">1 Step Paint Correction</option>
-                        <option value="Headlight Restoration">Headlight Restoration</option>
-                        <option value="Llumar Premium Tint">Llumar Premium Tint</option>
-                        <option value="PPF - High-Impact Front Package">PPF - High-Impact Front Package</option>
-                    </select>
+                    <div class="relative">
+                        <div onclick="toggleCustomDropdown('service-options')" class="w-full editorial-input text-lg font-editorial italic cursor-pointer flex justify-between items-center pb-2">
+                            <span id="service-selected-text" class="text-luxury-muted">Select Treatment...</span>
+                            <i class="fas fa-chevron-down text-[10px] text-luxury-muted transition-transform duration-300 dropdown-arrow" id="service-arrow"></i>
+                        </div>
+                        <div id="service-options" class="custom-options absolute top-full left-0 w-full mt-2 bg-[#050505] border border-white/10 shadow-2xl rounded-sm overflow-y-auto max-h-[220px] flex flex-col transition-all duration-300 opacity-0 pointer-events-none translate-y-[-10px] z-50 custom-scrollbar">
+                            <button type="button" onclick="setCustomOption('service', 'Exterior Wash', 'Exterior Wash')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Exterior Wash</button>
+                            <button type="button" onclick="setCustomOption('service', 'Standard Detail', 'Standard Detail')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Standard Detail</button>
+                            <button type="button" onclick="setCustomOption('service', 'Monthly Maintenance', 'Monthly Maintenance')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Monthly Maintenance</button>
+                            <button type="button" onclick="setCustomOption('service', 'Full Detail', 'Full Detail')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Full Detail</button>
+                            <button type="button" onclick="setCustomOption('service', '1 Step Paint Correction', '1 Step Paint Correction')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">1 Step Paint Correction</button>
+                            <button type="button" onclick="setCustomOption('service', 'Headlight Restoration', 'Headlight Restoration')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Headlight Restoration</button>
+                            <button type="button" onclick="setCustomOption('service', 'Llumar Premium Tint', 'Llumar Premium Tint')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors border-b border-white/5">Llumar Premium Tint</button>
+                            <button type="button" onclick="setCustomOption('service', 'PPF - High-Impact Front Package', 'PPF - High-Impact Front Package')" class="text-left w-full px-5 py-4 font-editorial italic text-lg text-luxury-silver hover:text-luxury-champagne hover:bg-white/5 transition-colors">PPF - High-Impact Front Package</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="service" value="">
                 </div>
 
                 <div class="relative group">
@@ -514,6 +530,55 @@
             
             initScrollReveal();
             triggerReveals();
+        });
+
+        // CUSTOM DROPDOWN LOGIC
+        function toggleCustomDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const arrow = document.getElementById(id.replace('-options', '-arrow'));
+            const isShowing = dropdown.classList.contains('opacity-100');
+            
+            // Close all first
+            document.querySelectorAll('.custom-options').forEach(el => {
+                el.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                el.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+            });
+            document.querySelectorAll('.dropdown-arrow').forEach(el => {
+                el.style.transform = 'rotate(0deg)';
+            });
+
+            // Open targeted if it wasn't already showing
+            if (!isShowing) {
+                dropdown.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                dropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function setCustomOption(type, value, displayLabel) {
+            const hiddenInput = document.getElementById(type);
+            hiddenInput.value = value;
+            
+            const displaySpan = document.getElementById(type + '-selected-text');
+            displaySpan.innerText = displayLabel;
+            displaySpan.classList.remove('text-luxury-muted');
+            displaySpan.classList.add('text-white');
+
+            toggleCustomDropdown(type + '-options');
+            calculateQuote();
+        }
+
+        // Close custom dropdowns if clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select-container')) {
+                document.querySelectorAll('.custom-options').forEach(el => {
+                    el.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    el.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                });
+                document.querySelectorAll('.dropdown-arrow').forEach(el => {
+                    el.style.transform = 'rotate(0deg)';
+                });
+            }
         });
 
         // SCROLL REVEAL OBSERVER
@@ -590,9 +655,13 @@
         }
 
         function selectVehicle(vehicleClass) {
-            const vehicleSelect = document.getElementById('vehicle');
-            vehicleSelect.value = vehicleClass;
-            calculateQuote();
+            let displayLabel = vehicleClass;
+            if(vehicleClass === 'Bike') displayLabel = 'Motorcycle / Bike';
+            if(vehicleClass === 'Sedan') displayLabel = 'Sedan / Coupe';
+            if(vehicleClass === 'Large SUV') displayLabel = 'Large SUV / Truck';
+            if(vehicleClass === 'Sport') displayLabel = 'Sport / Exotic';
+            
+            setCustomOption('vehicle', vehicleClass, displayLabel);
             openBookingUI();
         }
 
@@ -608,7 +677,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // --- CATALOG-ACCURATE CUSTOM PRICING MATRIX ---
         function calculateQuote() {
             const vehicleClass = document.getElementById('vehicle').value;
             const serviceName = document.getElementById('service').value;
@@ -619,7 +687,6 @@
                 return 0;
             }
 
-            // Real WhatsApp Catalog Pricing Engine
             const pricingMatrix = {
                 "Exterior Wash": { "Bike": 3000, "Sedan": 5000, "Mid-Size SUV": 6000, "Large SUV": 7000, "Sport": 5000 },
                 "Standard Detail": { "Bike": 6500, "Sedan": 8500, "Mid-Size SUV": 9500, "Large SUV": 11500, "Sport": 9500 },
@@ -631,9 +698,11 @@
                 "PPF - High-Impact Front Package": { "Bike": 0, "Sedan": 180000, "Mid-Size SUV": 220000, "Large SUV": 260000, "Sport": 180000 }
             };
 
-            const finalPrice = pricingMatrix[serviceName][vehicleClass];
+            // Safely fetch price to prevent undefined errors if class doesn't match matrix
+            const servicePrices = pricingMatrix[serviceName];
+            const finalPrice = servicePrices ? servicePrices[vehicleClass] : 0;
             
-            if(finalPrice === 0) {
+            if(!finalPrice || finalPrice === 0) {
                 display.innerText = 'N/A';
                 return 0;
             }
@@ -643,9 +712,12 @@
         }
 
         function flashError(elementId) {
-            const el = document.getElementById(elementId);
-            el.style.borderColor = '#FF3333';
-            setTimeout(() => { el.style.borderColor = 'rgba(255,255,255,0.2)'; }, 2000);
+            // Flash the custom dropdown container or input
+            const el = document.getElementById(elementId).previousElementSibling;
+            if(el) {
+                el.style.borderColor = '#FF3333';
+                setTimeout(() => { el.style.borderColor = 'rgba(255,255,255,0.2)'; }, 2000);
+            }
         }
 
         function checkSunday(event) {
@@ -653,7 +725,9 @@
             if(!dateVal) return;
             const selectedDate = new Date(dateVal);
             if(selectedDate.getUTCDay() === 0) {
-                flashError('booking-date');
+                const el = document.getElementById('booking-date');
+                el.style.borderColor = '#FF3333';
+                setTimeout(() => { el.style.borderColor = 'rgba(255,255,255,0.2)'; }, 2000);
                 event.target.value = ''; 
             }
         }
@@ -666,7 +740,12 @@
             let hasError = false;
             if(!vehicleSelect.value) { flashError('vehicle'); hasError = true; }
             if(!serviceSelect.value) { flashError('service'); hasError = true; }
-            if(!dateInput.value) { flashError('booking-date'); hasError = true; }
+            if(!dateInput.value) { 
+                const el = document.getElementById('booking-date');
+                el.style.borderColor = '#FF3333';
+                setTimeout(() => { el.style.borderColor = 'rgba(255,255,255,0.2)'; }, 2000);
+                hasError = true; 
+            }
             if(hasError) return; 
 
             const price = calculateQuote();
