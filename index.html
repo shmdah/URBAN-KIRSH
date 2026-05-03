@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Urban X Detail by Kirash</title>
+    
+    <meta name="theme-color" content="#030303">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Montserrat', 'sans-serif'],
+                        editorial: ['Cormorant Garamond', 'serif']
+                    },
+                    colors: {
+                        luxury: {
+                            black: '#030303',
+                            surface: '#0A0A0A',
+                            white: '#FFFFFF',
+                            champagne: '#D4AF37',
+                            silver: '#D1D1D1',
+                            muted: '#777777'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #030303; color: #FFFFFF; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 0px; display: none; }
+
+        .page-view { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .page-view.active { display: flex; opacity: 1; }
+
+        .video-gradient { background: linear-gradient(to top, rgba(3,3,3,1) 0%, rgba(3,3,3,0.4) 50%, rgba(3,3,3,0.8) 100%); }
+
+        .btn-champagne { background: #D4AF37; color: #030303; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .btn-champagne:hover { background: #F3E5AB; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+
+        .vehicle-card {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 32px;
+            border-radius: 2px;
+        }
+        .vehicle-card:hover { border-color: rgba(212, 175, 55, 0.5); background: rgba(20, 20, 20, 0.9); }
+        
+        .vehicle-img-container { width: 45%; display: flex; justify-content: flex-end; align-items: center; position: relative; }
+        .vehicle-img {
+            max-width: 100%; max-height: 100px; object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .vehicle-card:hover .single-img { transform: scale(1.08) rotate(-2deg); }
+
+        /* Custom Parallax for SUV Dual Image */
+        .suv-back-img { position: absolute; right: 40px; top: 50%; transform: translateY(-50%) scale(0.85); opacity: 0.7; z-index: 0; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .suv-front-img { position: relative; z-index: 10; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .vehicle-card:hover .suv-back-img { transform: translateY(-50%) scale(0.9) translateX(-10px); opacity: 0.9; }
+        .vehicle-card:hover .suv-front-img { transform: scale(1.08) translateX(5px); }
+
+        .bottom-sheet-overlay { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .bottom-sheet-overlay.active { opacity: 1; pointer-events: auto; }
+        .bottom-sheet { transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .bottom-sheet.active { transform: translateY(0); }
+
+        .minimal-input { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: #FFFFFF; transition: border-color 0.3s ease; appearance: none; }
+        .minimal-input:focus { border-color: #D4AF37; outline: none; }
+        .minimal-input:invalid, .minimal-input option[value=""] { color: #777777; }
+        select option { background-color: #0A0A0A; color: #FFFFFF; font-family: 'Montserrat', sans-serif; }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; opacity: 0.5; }
+
+        /* SCROLL REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* INTERACTIVE ACCORDION */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease; opacity: 0; }
+        .accordion-content.expanded { max-height: 500px; opacity: 1; }
+        .accordion-icon { transition: transform 0.4s ease; }
+        .accordion-btn.expanded .accordion-icon { transform: rotate(45deg); color: #D4AF37; }
+    </style>
+</head>
+<body class="selection:bg-luxury-champagne selection:text-black">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-40 py-6 px-6 md:px-12 bg-gradient-to-b from-black/80 to-transparent">
+        <div class="max-w-[1400px] mx-auto flex justify-between items-center">
+            <button onclick="switchPage('home')" class="font-editorial text-2xl md:text-3xl tracking-[0.15em] text-white uppercase drop-shadow-md flex items-center">
+                Urban X Detail 
+                <span class="text-base md:text-xl text-luxury-champagne normal-case italic font-light ml-3 tracking-normal hidden sm:inline">by Kirash</span>
+            </button>
+            <button onclick="toggleMenu()" class="text-white text-2xl hover:text-luxury-champagne transition-colors"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- FULL SCREEN NAVIGATION MENU -->
+    <div id="full-menu" class="fixed inset-0 bg-black/60 backdrop-blur-2xl z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 border-l border-white/5">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white text-2xl hover:text-luxury-champagne transition-colors"><i class="fas fa-times"></i></button>
+        <div class="flex flex-col items-center gap-6 text-center w-full px-6">
+            <div class="font-editorial text-lg tracking-[0.15em] text-luxury-champagne uppercase mb-4">Menu</div>
+            <button onclick="switchPage('home')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Home</button>
+            <button onclick="switchPage('ceramic')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Ceramic Coating</button>
+            <button onclick="switchPage('detailing')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Vehicle Detailing</button>
+            <button onclick="switchPage('vehicles')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Book Service</button>
+            <button onclick="switchPage('contact')" class="text-2xl md:text-4xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Contact Us</button>
+            <div class="w-12 h-[1px] bg-luxury-champagne/30 mt-6"></div>
+            
+            <div class="flex gap-6 mt-6">
+                <a href="https://www.instagram.com/urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 hover:border-luxury-champagne flex items-center justify-center transition-colors text-luxury-silver hover:text-luxury-champagne">
+                    <i class="fab fa-instagram text-lg"></i>
+                </a>
+                <a href="https://www.tiktok.com/@urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 hover:border-luxury-champagne flex items-center justify-center transition-colors text-luxury-silver hover:text-luxury-champagne">
+                    <i class="fab fa-tiktok text-lg"></i>
+                </a>
+            </div>
+            <span class="text-[9px] text-luxury-silver font-light tracking-[0.3em] uppercase mt-2">Follow The Studio</span>
+        </div>
+    </div>
+
+    <!-- PAGE 1: HOME -->
+    <main id="page-home" class="page-view active relative min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden pt-20 px-4 md:px-12">
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="video/video.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 video-gradient z-10"></div>
+        <div class="absolute inset-0 bg-black/10 z-10"></div>
+
+        <div class="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center text-center mt-12 reveal">
+            <div class="inline-flex items-center gap-4 mb-8">
+                <span class="w-12 h-[1px] bg-luxury-champagne/50"></span>
+                <span class="text-[10px] font-medium uppercase tracking-[0.4em] text-luxury-silver">Nairobi, NBO</span>
+                <span class="w-12 h-[1px] bg-luxury-champagne/50"></span>
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-[6.5rem] font-editorial leading-[1] text-white mb-6 drop-shadow-2xl">
+                The Art of <br><span class="italic font-light text-luxury-silver">Auto Detailing.</span>
+            </h1>
+            <p class="text-xs md:text-sm text-luxury-silver font-light tracking-[0.3em] uppercase max-w-md mx-auto leading-relaxed mb-12">
+                Elevated Car Care & Ceramic Coatings
+            </p>
+            <button onclick="switchPage('vehicles')" class="btn-champagne px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2">
+                Book Service <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- PAGE 2: CERAMIC COATING -->
+    <main id="page-ceramic" class="page-view relative min-h-[100dvh] w-full flex-col items-center pt-32 px-6 pb-24 bg-[#030303]">
+        <div class="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-luxury-champagne/10 to-transparent z-0 pointer-events-none"></div>
+
+        <div class="relative z-10 w-full max-w-[800px] mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h1 class="text-4xl md:text-6xl font-editorial text-white mb-4">Ceramic Coating <span class="italic text-luxury-champagne">Services</span></h1>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-luxury-silver mb-8">Nairobi, Kenya</p>
+                <p class="text-sm md:text-base text-luxury-silver font-light leading-relaxed max-w-2xl mx-auto">
+                    Shield your car with premium ceramic coatings, lasting protection from scratches, UV, chemicals, with a slick, glossy finish.
+                </p>
+            </div>
+
+            <div class="w-full space-y-2 reveal delay-100">
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-ceramic-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Ceramic Coating?</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-ceramic-1" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Ceramic coating is an advanced liquid protection system that chemically bonds with your vehicle’s paintwork to create a permanent protective layer. At Urban X Detail, we use certified ceramic coatings that form a hard, glass-like surface providing superior protection against UV rays, chemicals, scratches, and environmental contaminants. 
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-ceramic-2')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">Hydrophobic Benefits</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-ceramic-2" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Our ceramic coatings offer extreme hydrophobic properties causing water to bead and roll off seamlessly. This makes maintenance cleaning significantly easier, drastically reduces water spotting, and gives your vehicle a permanent showroom finish.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center reveal delay-200">
+                <button onclick="switchPage('vehicles')" class="btn-champagne px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold">
+                    Get Free Quotes
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE 3: VEHICLE DETAILING -->
+    <main id="page-detailing" class="page-view relative min-h-[100dvh] w-full flex-col items-center pt-32 px-6 pb-24 bg-[#030303]">
+        <div class="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-luxury-champagne/10 to-transparent z-0 pointer-events-none"></div>
+
+        <div class="relative z-10 w-full max-w-[800px] mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h1 class="text-4xl md:text-6xl font-editorial text-white mb-4">Professional <span class="italic text-luxury-champagne">Detailing</span></h1>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-luxury-silver mb-8">Nairobi, Kenya</p>
+                <p class="text-sm md:text-base text-luxury-silver font-light leading-relaxed max-w-2xl mx-auto">
+                    Restore your vehicle’s shine with paint correction, interior protection, & professional detailing using premium products.
+                </p>
+            </div>
+
+            <div class="w-full space-y-2 reveal delay-100">
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-detail-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Car Detailing?</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-detail-1" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Car detailing goes beyond your regular wash. It’s a full service to clean, protect and freshen up your car’s paint, wheels, trims, and interior. At Urban X Detail, our vehicle detailing services include paint decontamination, single-stage polish, and interior cleaning, designed to remove light swirls, dullness, and road grime.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-detail-2')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-2xl text-white group-hover:text-luxury-champagne transition-colors">Why Your Vehicle Needs It</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-detail-2" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            We use professional tools, techniques, and premium products for a safe, quality result. From soft blow drying to clay bar treatment and sealant protection, every step is done with care and attention. Choose from our Paint Enhancement Package or Full Interior and Exterior Detail.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center reveal delay-200">
+                <button onclick="switchPage('vehicles')" class="btn-champagne px-10 py-4 rounded-sm text-[10px] uppercase tracking-[0.2em] font-semibold">
+                    Book Detailing
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE 4: VEHICLE SELECTION (FLEET) -->
+    <main id="page-vehicles" class="page-view relative min-h-[100dvh] w-full flex-col items-center justify-center pt-24 px-4 pb-12 bg-[#030303]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-luxury-champagne/5 via-black to-black z-0 pointer-events-none"></div>
+
+        <div class="relative z-10 w-full max-w-[800px] mx-auto mt-8">
+            <button onclick="switchPage('home')" class="text-luxury-muted hover:text-white transition-colors text-[10px] uppercase tracking-[0.2em] mb-10 flex items-center gap-2 w-fit reveal">
+                <i class="fas fa-arrow-left"></i> Home
+            </button>
+
+            <div class="text-center mb-12 border-b border-white/5 pb-8 reveal">
+                <h2 class="text-3xl md:text-4xl font-editorial text-white mb-4 italic">Select Vehicle Class</h2>
+                <p class="text-[10px] text-luxury-muted uppercase tracking-[0.3em]">Bespoke care tailored to your machine</p>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                
+                <!-- SEDAN CARD -->
+                <button onclick="selectVehicle('Sedan')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-100">
+                    <div class="z-10">
+                        <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">Sedan</h3>
+                        <p class="text-[9px] md:text-[10px] text-luxury-silver uppercase tracking-[0.2em] font-light">E.g. S-Class, A4, 3 Series</p>
+                    </div>
+                    <div class="vehicle-img-container">
+                        <img src="image/S550.png" class="vehicle-img single-img" alt="Luxury Sedan" onerror="this.style.display='none'">
+                    </div>
+                </button>
+
+                <!-- COMBINED SUV CARD (G63 + LWD) -->
+                <button onclick="selectVehicle('SUV')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-200">
+                    <div class="z-10 relative z-20">
+                        <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">SUV</h3>
+                        <p class="text-[9px] md:text-[10px] text-luxury-silver uppercase tracking-[0.2em] font-light">E.g. G63, Range Rover, Patrol</p>
+                    </div>
+                    <div class="vehicle-img-container h-[100px]">
+                        <img src="image/LWD.png" class="vehicle-img suv-back-img" alt="Luxury 4WD" onerror="this.style.display='none'">
+                        <img src="image/G63.png" class="vehicle-img suv-front-img" alt="Luxury SUV" onerror="this.style.display='none'">
+                    </div>
+                </button>
+
+                <!-- SPORT CARD -->
+                <button onclick="selectVehicle('Sport')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-300">
+                    <div class="z-10">
+                        <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">Sport</h3>
+                        <p class="text-[9px] md:text-[10px] text-luxury-silver uppercase tracking-[0.2em] font-light">E.g. M3, Porsche 911</p>
+                    </div>
+                    <div class="vehicle-img-container">
+                        <img src="image/M3.png" class="vehicle-img single-img" alt="Sports Car" onerror="this.style.display='none'">
+                    </div>
+                </button>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE 5: CONTACT DIRECTORY -->
+    <main id="page-contact" class="page-view relative min-h-[100dvh] w-full flex-col items-center justify-center pt-24 px-4 pb-12 bg-[#030303]">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-luxury-champagne/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+
+        <div class="relative z-10 w-full max-w-[800px] mx-auto mt-8 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-editorial text-white mb-4">Studio <span class="italic text-luxury-champagne">Directory</span></h2>
+                <p class="text-[10px] text-luxury-muted uppercase tracking-[0.3em]">Get in touch with our concierge</p>
+            </div>
+
+            <!-- Typographic Layout (No generic tables or icons) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-8">
+                
+                <div class="space-y-10 border-l border-luxury-champagne/30 pl-6">
+                    <div>
+                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-3">Studio Location</p>
+                        <p class="font-editorial text-2xl md:text-3xl text-white">Cool Waters, Nairobi</p>
+                    </div>
+                    <div>
+                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-3">Direct Concierge</p>
+                        <a href="tel:+254721227896" class="font-editorial text-2xl md:text-3xl text-white hover:text-luxury-champagne transition-colors">+254 721 22 78 96</a>
+                    </div>
+                    <div>
+                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-3">Operating Hours</p>
+                        <p class="font-editorial text-2xl md:text-3xl text-white">Mon - Sat, 8:00am - 6:00pm</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center items-start md:items-end space-y-10 md:border-r border-luxury-champagne/30 md:pr-6 border-l md:border-l-0 border-luxury-champagne/30 pl-6 md:pl-0">
+                    <div>
+                        <p class="uppercase tracking-[0.3em] text-[9px] text-luxury-muted mb-4 md:text-right">Digital Portfolio</p>
+                        <div class="flex gap-4">
+                            <a href="https://www.instagram.com/urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-luxury-champagne hover:text-luxury-champagne transition-colors text-luxury-silver">
+                                <i class="fab fa-instagram text-lg"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@urbanx_detail" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-luxury-champagne hover:text-luxury-champagne transition-colors text-luxury-silver">
+                                <i class="fab fa-tiktok text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button onclick="openBookingUI()" class="btn-champagne py-4 px-10 text-[10px] uppercase tracking-[0.2em] font-semibold w-fit rounded-sm">
+                            Initiate Booking
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- MOBILE-FIRST BOOKING UI -->
+    <div id="bookingOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] bottom-sheet-overlay flex items-end justify-center sm:items-center p-0 sm:p-4">
+        <div class="absolute inset-0" onclick="closeBookingUI()"></div>
+        <div id="bookingSheet" class="relative w-full max-w-[480px] bg-luxury-surface border-t sm:border border-white/10 sm:rounded-2xl rounded-t-3xl pt-2 pb-8 px-6 md:px-10 bottom-sheet shadow-2xl z-10">
+            <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-6 sm:hidden"></div>
+            <button onclick="closeBookingUI()" class="absolute top-6 right-6 text-luxury-muted hover:text-white transition-colors"><i class="fas fa-times text-lg"></i></button>
+
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-editorial text-white mb-2 italic">Reserve a Slot</h2>
+                <p class="text-[10px] text-luxury-muted uppercase tracking-[0.2em]">Select your specifications</p>
+            </div>
+
+            <div class="space-y-5">
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[9px] uppercase tracking-[0.2em] font-medium text-luxury-silver">Vehicle Class</label>
+                    <div class="relative">
+                        <select id="vehicle" required onchange="calculateQuote()" class="w-full minimal-input px-4 py-3.5 rounded-sm text-xs cursor-pointer font-light">
+                            <option value="" disabled selected hidden>Select your vehicle category...</option>
+                            <option value="Sedan" data-price="20000">Sedan</option>
+                            <option value="SUV" data-price="30000">SUV</option>
+                            <option value="Sport" data-price="40000">Sport / Exotic</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-luxury-muted pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[9px] uppercase tracking-[0.2em] font-medium text-luxury-silver">Service Required</label>
+                    <div class="relative">
+                        <select id="service" required onchange="calculateQuote()" class="w-full minimal-input px-4 py-3.5 rounded-sm text-xs cursor-pointer font-light">
+                            <option value="" disabled selected hidden>Select a service package...</option>
+                            <option value="Paint Enhancement Package" data-multiplier="0.8">Paint Enhancement Package</option>
+                            <option value="Paint Correction & Ceramic Coating" data-multiplier="1">Paint Correction & Ceramic Coating</option>
+                            <option value="Full Interior & Exterior Detail" data-multiplier="0.6">Full Interior & Exterior Detail</option>
+                            <option value="Monthly Maintenance Detail" data-multiplier="0.4">Monthly Maintenance Detail</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-luxury-muted pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[9px] uppercase tracking-[0.2em] font-medium text-luxury-silver flex justify-between">
+                        Drop-off Date <span class="text-luxury-muted lowercase">(Closed Sundays)</span>
+                    </label>
+                    <div class="relative">
+                        <i class="far fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-luxury-champagne text-sm pointer-events-none"></i>
+                        <input type="date" id="booking-date" onchange="checkSunday(event)" class="w-full minimal-input pl-10 pr-4 py-3.5 rounded-sm text-xs cursor-pointer font-light uppercase tracking-widest text-luxury-silver">
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between pt-6 border-t border-white/10 mt-2">
+                    <span class="text-[9px] uppercase tracking-[0.2em] text-luxury-muted font-medium">Est. Investment</span>
+                    <span id="price-display" class="text-2xl font-editorial text-luxury-champagne tracking-wide">KSh 0</span>
+                </div>
+
+                <button onclick="dispatchWhatsApp()" class="w-full btn-champagne py-4 rounded-sm font-semibold text-[10px] uppercase tracking-[0.2em] mt-4 flex items-center justify-center gap-2">
+                    Confirm via WhatsApp <i class="fab fa-whatsapp text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT ENGINE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('booking-date');
+            if(dateInput) { dateInput.min = "2026-05-04"; } // Start from tomorrow to bypass current Sunday system time
+            
+            initScrollReveal();
+            triggerReveals();
+        });
+
+        // SCROLL REVEAL OBSERVER
+        function initScrollReveal() {
+            const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const btn = content.previousElementSibling;
+            
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                if(el.id !== id && el.classList.contains('expanded')) {
+                    el.classList.remove('expanded');
+                    el.previousElementSibling.classList.remove('expanded');
+                }
+            });
+
+            content.classList.toggle('expanded');
+            btn.classList.toggle('expanded');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('full-menu');
+            if (menu.classList.contains('opacity-0')) {
+                menu.classList.remove('opacity-0', 'pointer-events-none');
+                menu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none');
+                menu.classList.remove('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function switchPage(pageId) {
+            const menu = document.getElementById('full-menu');
+            if(menu.classList.contains('opacity-100')) toggleMenu();
+
+            document.querySelectorAll('.page-view').forEach(page => {
+                page.classList.remove('active');
+                page.querySelectorAll('.reveal').forEach(el => el.classList.remove('active'));
+            });
+
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                setTimeout(() => {
+                    target.querySelectorAll('.reveal').forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if(rect.top <= window.innerHeight) el.classList.add('active');
+                    });
+                }, 50);
+            }
+        }
+
+        function triggerReveals() {
+            setTimeout(() => {
+                document.querySelectorAll('.page-view.active .reveal').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if(rect.top <= window.innerHeight) el.classList.add('active');
+                });
+            }, 100);
+        }
+
+        function selectVehicle(vehicleClass) {
+            const vehicleSelect = document.getElementById('vehicle');
+            vehicleSelect.value = vehicleClass;
+            calculateQuote();
+            openBookingUI();
+        }
+
+        function openBookingUI() {
+            document.getElementById('bookingOverlay').classList.add('active');
+            document.getElementById('bookingSheet').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeBookingUI() {
+            document.getElementById('bookingOverlay').classList.remove('active');
+            document.getElementById('bookingSheet').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function calculateQuote() {
+            const vehicleSelect = document.getElementById('vehicle');
+            const serviceSelect = document.getElementById('service');
+            const display = document.getElementById('price-display');
+            
+            if (!vehicleSelect.value || !serviceSelect.value) {
+                display.innerText = 'KSh 0';
+                return 0;
+            }
+
+            const basePrice = parseFloat(vehicleSelect.options[vehicleSelect.selectedIndex].getAttribute('data-price'));
+            const multiplier = parseFloat(serviceSelect.options[serviceSelect.selectedIndex].getAttribute('data-multiplier'));
+            
+            const finalPrice = basePrice * multiplier;
+            display.innerText = 'KSh ' + finalPrice.toLocaleString();
+            return finalPrice;
+        }
+
+        function flashError(elementId) {
+            const el = document.getElementById(elementId);
+            el.style.borderColor = '#FF3333';
+            setTimeout(() => { el.style.borderColor = 'rgba(255,255,255,0.1)'; }, 2000);
+        }
+
+        // Sunday Blocking Logic
+        function checkSunday(event) {
+            const dateVal = event.target.value;
+            if(!dateVal) return;
+            const selectedDate = new Date(dateVal);
+            if(selectedDate.getUTCDay() === 0) {
+                flashError('booking-date');
+                event.target.value = ''; // Clear input
+            }
+        }
+
+        function dispatchWhatsApp() {
+            const vehicleSelect = document.getElementById('vehicle');
+            const serviceSelect = document.getElementById('service');
+            const dateInput = document.getElementById('booking-date');
+            
+            let hasError = false;
+            if(!vehicleSelect.value) { flashError('vehicle'); hasError = true; }
+            if(!serviceSelect.value) { flashError('service'); hasError = true; }
+            if(!dateInput.value) { flashError('booking-date'); hasError = true; }
+            if(hasError) return; 
+
+            const price = calculateQuote();
+            const message = 
+`URBAN X DETAIL BY KIRASH | SERVICE INQUIRY
+
+Vehicle: ${vehicleSelect.value}
+Service: ${serviceSelect.value}
+Preferred Date: ${dateInput.value}
+Estimated Investment: KSh ${price.toLocaleString()}
+
+Greetings Kirash, I would like to schedule my vehicle for the detailing service above at Cool Waters. Please let me know the availability.`;
+
+            window.location.href = `https://wa.me/254721227896?text=${encodeURIComponent(message)}`;
+        }
+    </script>
+</body>
+</html>
