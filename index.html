@@ -43,18 +43,9 @@
         ::-webkit-scrollbar { width: 0px; display: none; }
 
         /* LOADING & WELCOME SCREEN */
-        #welcome-screen {
-            transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1);
-        }
-        .welcome-text {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .welcome-text.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        #welcome-screen { transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1); }
+        .welcome-text { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .welcome-text.show { opacity: 1; transform: translateY(0); }
 
         .page-view { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .page-view.active { display: flex; opacity: 1; }
@@ -65,34 +56,22 @@
         .btn-champagne:hover { background: #F3E5AB; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
 
         .vehicle-card {
-            background: rgba(10, 10, 10, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 24px 32px;
-            border-radius: 2px;
+            background: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px); transition: all 0.4s ease; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; border-radius: 2px;
         }
         .vehicle-card:hover { border-color: rgba(212, 175, 55, 0.5); background: rgba(20, 20, 20, 0.9); }
         
         .vehicle-img-container { width: 45%; display: flex; justify-content: flex-end; align-items: center; position: relative; }
         .vehicle-img {
             max-width: 100%; max-height: 100px; object-fit: contain;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9)); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        /* Custom Overrides for precise scaling */
         .sport-img { max-height: 140px; margin-right: -10px; }
         .bike-img { max-height: 130px; margin-right: -10px; }
-
         .vehicle-card:hover .single-img { transform: scale(1.08) rotate(-2deg); }
 
-        /* Custom Parallax for SUV Dual Image */
         .suv-back-img { position: absolute; right: 40px; top: 50%; transform: translateY(-50%) scale(0.85); opacity: 0.7; z-index: 0; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .suv-front-img { position: relative; z-index: 10; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .vehicle-card:hover .suv-back-img { transform: translateY(-50%) scale(0.9) translateX(-10px); opacity: 0.9; }
@@ -154,7 +133,7 @@
         <div class="flex flex-col items-center gap-5 text-center w-full px-6">
             <div class="font-editorial text-sm tracking-[0.2em] text-luxury-champagne uppercase mb-4">Menu</div>
             <button onclick="switchPage('home')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Home</button>
-            <button onclick="switchPage('ceramic')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Ceramic Coating</button>
+            <button onclick="switchPage('ceramic')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Protection & PPF</button>
             <button onclick="switchPage('detailing')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Vehicle Detailing</button>
             <button onclick="switchPage('vehicles')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Book Service</button>
             <button onclick="switchPage('contact')" class="text-lg md:text-xl font-editorial text-white hover:text-luxury-champagne transition-colors uppercase tracking-[0.15em]">Contact Us</button>
@@ -198,16 +177,16 @@
         </div>
     </main>
 
-    <!-- PAGE 2: CERAMIC COATING -->
+    <!-- PAGE 2: CERAMIC COATING & PPF -->
     <main id="page-ceramic" class="page-view relative min-h-[100dvh] w-full flex-col items-center pt-32 px-6 pb-24 bg-[#030303]">
         <div class="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-luxury-champagne/10 to-transparent z-0 pointer-events-none"></div>
 
         <div class="relative z-10 w-full max-w-[800px] mx-auto">
             <div class="text-center mb-16 reveal">
-                <h1 class="text-4xl md:text-6xl font-editorial text-white mb-4">Ceramic Coating <span class="italic text-luxury-champagne">Services</span></h1>
+                <h1 class="text-4xl md:text-6xl font-editorial text-white mb-4">Protection & <span class="italic text-luxury-champagne">Enhancements</span></h1>
                 <p class="text-[10px] uppercase tracking-[0.3em] text-luxury-silver mb-8">Nairobi, Kenya</p>
                 <p class="text-sm md:text-base text-luxury-silver font-light leading-relaxed max-w-2xl mx-auto">
-                    Shield your car with premium ceramic coatings, lasting protection from scratches, UV, chemicals, with a slick, glossy finish.
+                    Meticulous polishing, PPF installations, and premium film protection designed to preserve delicate surfaces and elevate your driving experience.
                 </p>
             </div>
 
@@ -215,24 +194,48 @@
             <div class="w-full space-y-2 reveal delay-100">
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-ceramic-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Ceramic Coating?</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">1 Step Paint Correction</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-ceramic-1" class="accordion-content">
                         <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
-                            Ceramic coating is an advanced liquid protection system that chemically bonds with your vehicle’s paintwork to create a permanent protective layer. At Urban X Detail, we use certified ceramic coatings that form a hard, glass-like surface providing superior protection against UV rays, chemicals, scratches, and environmental contaminants. 
+                            Gentle yet effective dirt and grime removal paired with advanced polishing. We pay attention to every curve and contour to deliver a flawless finish that enhances your car's beauty and preserves paint integrity. Recommended for vehicles needing a deep revival of their natural gloss.
                         </p>
                     </div>
                 </div>
 
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-ceramic-2')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Hydrophobic Benefits</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">PPF - High-Impact Front Package</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-ceramic-2" class="accordion-content">
                         <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
-                            Our ceramic coatings offer extreme hydrophobic properties causing water to bead and roll off seamlessly. This makes maintenance cleaning significantly easier, drastically reduces water spotting, and gives your vehicle a permanent showroom finish.
+                            The ultimate defense against rock chips and road debris. Our High-Impact package includes precision installation of Paint Protection Film on the front bumper, full hood, front fenders, mirrors, and headlights. Invisible armor for your investment.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-ceramic-3')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Llumar Premium Tint</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-ceramic-3" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Protect your interior and enhance privacy with our Llumar Premium Tint installations. Available for front windows only, or complete full-vehicle wraps for maximum heat rejection, glare reduction, and UV defense. 
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-ceramic-4')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Headlight Restoration</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-ceramic-4" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Restore clarity and brightness to faded, yellowed, or oxidized headlights. This dedicated treatment drastically improves your vehicle's aesthetic while restoring optimal nighttime visibility and safety.
                         </p>
                     </div>
                 </div>
@@ -253,36 +256,63 @@
         <div class="relative z-10 w-full max-w-[800px] mx-auto">
             <div class="text-center mb-16 reveal">
                 <h1 class="text-4xl md:text-6xl font-editorial text-white mb-4">Professional <span class="italic text-luxury-champagne">Detailing</span></h1>
-                <p class="text-[10px] uppercase tracking-[0.3em] text-luxury-silver mb-8">Nairobi, Kenya</p>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-luxury-silver mb-8">Bespoke Interior & Exterior</p>
                 <p class="text-sm md:text-base text-luxury-silver font-light leading-relaxed max-w-2xl mx-auto">
-                    Restore your vehicle’s shine with paint correction, interior protection, & professional detailing using premium products.
+                    Meticulous hand washes and deep restorations using premium products, leaving a flawless finish that elevates your driving experience.
                 </p>
             </div>
 
+            <!-- INTERACTIVE ACCORDIONS -->
             <div class="w-full space-y-2 reveal delay-100">
+                
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-detail-1')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">What is Car Detailing?</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Exterior Wash</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-detail-1" class="accordion-content">
                         <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
-                            Car detailing goes beyond your regular wash. It’s a full service to clean, protect and freshen up your car’s paint, wheels, trims, and interior. At Urban X Detail, our vehicle detailing services include paint decontamination, single-stage polish, and interior cleaning, designed to remove light swirls, dullness, and road grime.
+                            Meticulous hand wash using premium products. Gentle yet effective dirt & grime removal that preserves delicate surfaces and paint integrity. We pay attention to every curve & contour, delivering a flawless finish that enhances your car's beauty.
                         </p>
                     </div>
                 </div>
 
                 <div class="border-b border-white/10 pb-2">
                     <button onclick="toggleAccordion('acc-detail-2')" class="accordion-btn w-full flex justify-between items-center py-6 group">
-                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Why Your Vehicle Needs It</span>
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Standard Detail</span>
                         <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
                     </button>
                     <div id="acc-detail-2" class="accordion-content">
                         <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
-                            We use professional tools, techniques, and premium products for a safe, quality result. From soft blow drying to clay bar treatment and sealant protection, every step is done with care and attention. Choose from our Paint Enhancement Package or Full Interior and Exterior Detail.
+                            Recommended for well-maintained vehicles. Includes a two-bucket hand wash/foam wash, detailed cleaning of wheels and tires with no-sling dressing. We apply a 3-4 week paint sealant or spray wax, followed by an interior blowout, vacuum, full surface wipe-down, and streak-free glass cleaning.
                         </p>
                     </div>
                 </div>
+
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-detail-3')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Monthly Maintenance</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-detail-3" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Keep your vehicle looking its best year-round. Includes a thorough exterior wash, light interior cleaning, windows, wheels, and a quick wax touch-up to maintain shine and protection. Ideal for customers who've had a full detail. Note: Monthly clients get PRIORITY service!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-b border-white/10 pb-2">
+                    <button onclick="toggleAccordion('acc-detail-4')" class="accordion-btn w-full flex justify-between items-center py-6 group">
+                        <span class="font-editorial text-xl md:text-2xl text-white group-hover:text-luxury-champagne transition-colors">Full Detail</span>
+                        <i class="fas fa-plus text-luxury-muted accordion-icon"></i>
+                    </button>
+                    <div id="acc-detail-4" class="accordion-content">
+                        <p class="text-xs text-luxury-silver font-light leading-loose pt-2 pb-6 pr-4">
+                            Our ultimate restoration package. Includes everything in standard, plus clay & chemical decontamination, door jambs, gas cap, and water channels. Interior receives deep shampooing of cloth mats and carpeting, deep cleaning and conditioning of leather seats, dash UV protection, and application of a 6-month wax or sealant.
+                        </p>
+                    </div>
+                </div>
+
             </div>
 
             <div class="mt-16 text-center reveal delay-200">
@@ -309,7 +339,6 @@
 
             <div class="flex flex-col gap-4">
                 
-                <!-- SEDAN CARD -->
                 <button onclick="selectVehicle('Sedan')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-100">
                     <div class="z-10">
                         <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">Sedan</h3>
@@ -320,8 +349,7 @@
                     </div>
                 </button>
 
-                <!-- COMBINED SUV CARD (G63 + LWD) -->
-                <button onclick="selectVehicle('SUV')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-200">
+                <button onclick="selectVehicle('Mid-Size SUV')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-200">
                     <div class="z-10 relative z-20">
                         <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">SUV</h3>
                         <p class="text-[9px] md:text-[10px] text-luxury-silver uppercase tracking-[0.2em] font-light">E.g. G63, Range Rover, Patrol</p>
@@ -332,7 +360,6 @@
                     </div>
                 </button>
 
-                <!-- SPORT CARD -->
                 <button onclick="selectVehicle('Sport')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-300">
                     <div class="z-10">
                         <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">Sport</h3>
@@ -343,7 +370,6 @@
                     </div>
                 </button>
 
-                <!-- BIKE CARD -->
                 <button onclick="selectVehicle('Bike')" class="vehicle-card group text-left w-full cursor-pointer reveal delay-400">
                     <div class="z-10">
                         <h3 class="font-editorial text-2xl md:text-3xl text-white mb-2 group-hover:text-luxury-champagne transition-colors">Bike</h3>
@@ -424,10 +450,11 @@
                     <label class="block text-[8px] uppercase tracking-[0.3em] font-medium text-luxury-muted mb-2 transition-colors group-hover:text-luxury-champagne">Vehicle Classification</label>
                     <select id="vehicle" required onchange="calculateQuote()" class="w-full editorial-input text-lg font-editorial italic cursor-pointer">
                         <option value="" disabled selected hidden>Select Classification...</option>
-                        <option value="Bike" data-price="15000">Motorcycle / Bike</option>
-                        <option value="Sedan" data-price="20000">Sedan</option>
-                        <option value="SUV" data-price="30000">SUV</option>
-                        <option value="Sport" data-price="40000">Sport / Exotic</option>
+                        <option value="Bike">Motorcycle / Bike</option>
+                        <option value="Sedan">Sedan / Coupe</option>
+                        <option value="Mid-Size SUV">Mid-Size SUV</option>
+                        <option value="Large SUV">Large SUV / Truck</option>
+                        <option value="Sport">Sport / Exotic</option>
                     </select>
                 </div>
 
@@ -435,10 +462,14 @@
                     <label class="block text-[8px] uppercase tracking-[0.3em] font-medium text-luxury-muted mb-2 transition-colors group-hover:text-luxury-champagne">Service Tier</label>
                     <select id="service" required onchange="calculateQuote()" class="w-full editorial-input text-lg font-editorial italic cursor-pointer">
                         <option value="" disabled selected hidden>Select Treatment...</option>
-                        <option value="Paint Enhancement Package" data-multiplier="0.8">Paint Enhancement Package</option>
-                        <option value="Paint Correction & Ceramic Coating" data-multiplier="1">Paint Correction & Ceramic Coating</option>
-                        <option value="Full Interior & Exterior Detail" data-multiplier="0.6">Full Interior & Exterior Detail</option>
-                        <option value="Monthly Maintenance Detail" data-multiplier="0.4">Monthly Maintenance Detail</option>
+                        <option value="Exterior Wash">Exterior Wash</option>
+                        <option value="Standard Detail">Standard Detail</option>
+                        <option value="Monthly Maintenance">Monthly Maintenance</option>
+                        <option value="Full Detail">Full Detail</option>
+                        <option value="1 Step Paint Correction">1 Step Paint Correction</option>
+                        <option value="Headlight Restoration">Headlight Restoration</option>
+                        <option value="Llumar Premium Tint">Llumar Premium Tint</option>
+                        <option value="PPF - High-Impact Front Package">PPF - High-Impact Front Package</option>
                     </select>
                 </div>
 
@@ -577,20 +608,36 @@
             document.body.style.overflow = 'auto';
         }
 
+        // --- CATALOG-ACCURATE CUSTOM PRICING MATRIX ---
         function calculateQuote() {
-            const vehicleSelect = document.getElementById('vehicle');
-            const serviceSelect = document.getElementById('service');
+            const vehicleClass = document.getElementById('vehicle').value;
+            const serviceName = document.getElementById('service').value;
             const display = document.getElementById('price-display');
             
-            if (!vehicleSelect.value || !serviceSelect.value) {
+            if (!vehicleClass || !serviceName) {
                 display.innerText = 'KSh 0';
                 return 0;
             }
 
-            const basePrice = parseFloat(vehicleSelect.options[vehicleSelect.selectedIndex].getAttribute('data-price'));
-            const multiplier = parseFloat(serviceSelect.options[serviceSelect.selectedIndex].getAttribute('data-multiplier'));
+            // Real WhatsApp Catalog Pricing Engine
+            const pricingMatrix = {
+                "Exterior Wash": { "Bike": 3000, "Sedan": 5000, "Mid-Size SUV": 6000, "Large SUV": 7000, "Sport": 5000 },
+                "Standard Detail": { "Bike": 6500, "Sedan": 8500, "Mid-Size SUV": 9500, "Large SUV": 11500, "Sport": 9500 },
+                "Monthly Maintenance": { "Bike": 9500, "Sedan": 14500, "Mid-Size SUV": 15500, "Large SUV": 16500, "Sport": 15500 },
+                "Full Detail": { "Bike": 15000, "Sedan": 22500, "Mid-Size SUV": 23500, "Large SUV": 25500, "Sport": 25500 },
+                "1 Step Paint Correction": { "Bike": 18000, "Sedan": 35000, "Mid-Size SUV": 45000, "Large SUV": 55000, "Sport": 45000 },
+                "Headlight Restoration": { "Bike": 0, "Sedan": 7000, "Mid-Size SUV": 10000, "Large SUV": 10000, "Sport": 7000 },
+                "Llumar Premium Tint": { "Bike": 0, "Sedan": 30000, "Mid-Size SUV": 40000, "Large SUV": 50000, "Sport": 30000 },
+                "PPF - High-Impact Front Package": { "Bike": 0, "Sedan": 180000, "Mid-Size SUV": 220000, "Large SUV": 260000, "Sport": 180000 }
+            };
+
+            const finalPrice = pricingMatrix[serviceName][vehicleClass];
             
-            const finalPrice = basePrice * multiplier;
+            if(finalPrice === 0) {
+                display.innerText = 'N/A';
+                return 0;
+            }
+
             display.innerText = 'KSh ' + finalPrice.toLocaleString();
             return finalPrice;
         }
@@ -623,11 +670,17 @@
             if(hasError) return; 
 
             const price = calculateQuote();
+            
+            if(price === 0) {
+                alert("This specific treatment is not applicable for the selected vehicle class.");
+                return;
+            }
+
             const message = 
-`URBAN X DETAIL BY KIRASH | SERVICE INQUIRY
+`URBAN X DETAIL | RESERVATION REQUEST
 
 Vehicle: ${vehicleSelect.value}
-Service: ${serviceSelect.value}
+Treatment: ${serviceSelect.value}
 Arrival Date: ${dateInput.value}
 Estimated Investment: KSh ${price.toLocaleString()}
 
